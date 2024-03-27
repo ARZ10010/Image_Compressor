@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>File Uploads</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+  <div class="app">
+
+    <div class="form-section">
+
+      <div class="form-section">
+        <form action="/pca" method="POST">
+         <label for="pca">PCA</label>
+         <input type="text" name="pca">
+         <input type="submit" value="Set">
+         {% if pca %}
+         <p>Your PCA: {{ pca }}</p>
+         {% endif %}
+        </form>
+        <form action="/download" method="POST">
+            <input type="submit" value="Download">
+            <a href="{{url_for(download)}}"><p>Download</p></a>
+          </form>
+      </div>
+
+    </div>
+
+    <div class="images-section">
+
+      <!-- Images will go here -->
+      {% for image in images%}
+        <a href="{{url_for('serve_download_image',filename = image)}}" target = "_blank">
+          <img src="{{url_for('serve_download_image',filename = image)}}" />
+        </a>
+      {%endfor%}
+    </div>
+
+    
+  </div>
+</body>
+</html>
