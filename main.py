@@ -3,9 +3,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from sklearn.decomposition import PCA
 import os
-
 from PIL import Image
-import os
 
 def convert_to_jpg(image_path):
     try:
@@ -72,24 +70,28 @@ def image_compressor(pca):
 
         pca_g = PCA(n_components=pca_components)
         reduced_g = pca_g.fit_transform(b)
-        combined = np.array([reduced_r,reduced_g,reduced_b])
+        # combined = np.array([reduced_r,reduced_g,reduced_b])
         reconstructed_r = pca_r.inverse_transform(reduced_r)
         reconstructed_g = pca_g.inverse_transform(reduced_g)
         reconstructed_b = pca_b.inverse_transform(reduced_b)
         # plt.imshow(reconstructed_r)
-        img_reconstructed = cv2.merge((reconstructed_r,reconstructed_g,reconstructed_b))
+        img_reconstructed = cv2.merge((reconstructed_b,reconstructed_g,reconstructed_r))
         image_name = image[0:len(image)-4]
         img_path = os.path.join('.',f'downloads/{image_name}')
+        plt.imshow(img_reconstructed)
+        plt.axis('off')
+        fig = plt.gcf()
+        # Adjust the figure size to match the content of the image
+        fig.set_size_inches(img_reconstructed.shape[1] / 100.0, img_reconstructed.shape[0] / 100.0)
+        plt.savefig(f"{img_path}_compressed.jpg", bbox_inches='tight', pad_inches=0)
+        # plt.show()
         # img_con = cv2.convertScaleAbs(img_reconstructed)
         # img_bgr = cv2.cvtColor(img_con,cv2.COLOR_RGB2BGR)
-        cv2.imwrite(f"{img_path}_compressed.jpg", 255*img_reconstructed)
-        # plt.imshow(img_reconstructed)
-        # plt.show()
+        # cv2.imwrite(f"{img_path}_compressed.jpg", 255*img_reconstructed)
         directory = os.path.join('.','uploads')
         delete_image(os.path.join(directory,image))
 def main():
-    # image_compressor(100)
-    pass
+    image_compressor(100)
 
 if __name__ == "__main__":
     main()
