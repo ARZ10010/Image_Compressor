@@ -65,17 +65,17 @@ def image_compressor(pca):
         pca_r = PCA(n_components=pca_components)
         reduced_r = pca_r.fit_transform(r)
 
-        pca_b = PCA(n_components=pca_components)
-        reduced_b = pca_b.fit_transform(g)
-
         pca_g = PCA(n_components=pca_components)
-        reduced_g = pca_g.fit_transform(b)
+        reduced_g = pca_g.fit_transform(g)
+
+        pca_b = PCA(n_components=pca_components)
+        reduced_b = pca_b.fit_transform(b)
         # combined = np.array([reduced_r,reduced_g,reduced_b])
         reconstructed_r = pca_r.inverse_transform(reduced_r)
         reconstructed_g = pca_g.inverse_transform(reduced_g)
         reconstructed_b = pca_b.inverse_transform(reduced_b)
         # plt.imshow(reconstructed_r)
-        img_reconstructed = cv2.merge((reconstructed_b,reconstructed_g,reconstructed_r))
+        img_reconstructed = cv2.merge((reconstructed_r,reconstructed_g,reconstructed_b))
         image_name = image[0:len(image)-4]
         img_path = os.path.join('.',f'downloads/{image_name}')
         plt.imshow(img_reconstructed)
