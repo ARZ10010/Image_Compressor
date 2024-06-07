@@ -5,6 +5,9 @@ from sklearn.decomposition import PCA
 import os
 from PIL import Image
 
+os.mkdir(os.path.join('.', 'uploads'))
+os.mkdir(os.path.join('.', 'downloads'))
+
 def convert_to_jpg(image_path):
     try:
         # Open the image file
