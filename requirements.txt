@@ -1,6 +1,0 @@
-flask
-numpy
-matplotlib
-opencv-python
-scikit-learn
-gunicorn
