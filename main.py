@@ -5,8 +5,11 @@ from sklearn.decomposition import PCA
 import os
 from PIL import Image
 
-os.mkdir(os.path.join('.', 'uploads'))
-os.mkdir(os.path.join('.', 'downloads'))
+if os.path.isdir(os.path.join('.', 'uploads')) and os.path.isdir(os.path.join('.', 'downloads')):
+    pass
+else:
+    os.mkdir(os.path.join('.', 'uploads'))
+    os.mkdir(os.path.join('.', 'downloads'))
 
 def convert_to_jpg(image_path):
     try:
